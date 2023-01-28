@@ -8,10 +8,10 @@ import MachineLearning from './screens/machine-learning/machine-learning';
 export default function () {
   return (
     <View style={styles.container}>
-      <Home />
-      {/* <DumpClassification />
-      <MachineLearning />
-      <RiskChart /> */}
+      {/* <Home /> */}
+      <DumpClassification />
+      {/* <MachineLearning /> */}
+      {/* <RiskChart /> */}
     </View>
   );
 }

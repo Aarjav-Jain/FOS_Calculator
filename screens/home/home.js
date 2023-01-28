@@ -20,10 +20,14 @@ export default function Home() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    alignItems: 'center',
+    justifyContent: 'space-evenly',
   },
   card: {
+    alignItems: 'center',
+    justifyContent: 'center',
     height: 200,
     width: 200,
-    backgroundColor: 'green',
+    backgroundColor: 'purple',
   },
 });
