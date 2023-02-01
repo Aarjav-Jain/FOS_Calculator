@@ -9,8 +9,8 @@ export default function () {
   return (
     <View style={styles.container}>
       {/* <Home /> */}
-      <DumpClassification />
-      {/* <MachineLearning /> */}
+      {/* <DumpClassification /> */}
+      <MachineLearning />
       {/* <RiskChart /> */}
     </View>
   );
