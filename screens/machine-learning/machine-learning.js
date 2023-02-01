@@ -80,7 +80,7 @@ export default function MachineLearning() {
           </View>
         );
       })}
-      <Button color={'blue'} title="Calculate"></Button>
+      <Button color={'blue'} title="Calculate" />
     </ScrollView>
   );
 }

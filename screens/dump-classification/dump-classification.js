@@ -67,10 +67,6 @@ export default function DumpClassification() {
   const [result, setResult] = useState('');
   const [finalRating, setRating] = useState(0);
 
-  useEffect(() => {
-    checkFOS();
-  }, [finalRating]);
-
   const checkFOS = () => {
     if (finalRating <= 30) setResult('Highly Unstable');
     else if (finalRating <= 50) setResult('Unstable');
@@ -219,6 +215,10 @@ export default function DumpClassification() {
     // checkFOS();
   };
 
+  useEffect(() => {
+    checkFOS();
+  }, [finalRating]);
+
   return (
     <ScrollView>
       {initialKeys.map((item, index) => {
@@ -234,7 +234,7 @@ export default function DumpClassification() {
           </View>
         );
       })}
-      <Button color={'blue'} title="Calculate" onPress={handleClick}></Button>
+      <Button color={'blue'} title="Calculate" onPress={handleClick} />
       <View>
         {finalRating != 0 && (
           <Text>
