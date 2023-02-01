@@ -1,17 +1,26 @@
+import {useNavigation} from '@react-navigation/native';
 import React from 'react';
 import {StyleSheet, Text, TouchableHighlight, View} from 'react-native';
 
 export default function Home() {
+  const navigation = useNavigation();
+
   return (
     <View style={styles.container}>
-      <TouchableHighlight style={styles.card}>
+      <TouchableHighlight
+        style={styles.card}
+        onPress={() => navigation.navigate('Dump Classification')}>
         <Text>Dump Classification</Text>
       </TouchableHighlight>
-      <TouchableHighlight style={styles.card}>
+      <TouchableHighlight
+        style={styles.card}
+        onPress={() => navigation.navigate('Machine Learning')}>
         <Text>Machine Learning</Text>
       </TouchableHighlight>
-      <TouchableHighlight style={styles.card}>
-        <Text>Risk Chart</Text>
+      <TouchableHighlight
+        style={styles.card}
+        onPress={() => navigation.navigate('Safety Chart')}>
+        <Text>Safety Chart</Text>
       </TouchableHighlight>
     </View>
   );

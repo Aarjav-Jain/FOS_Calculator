@@ -1,12 +1,15 @@
 import React, {useReducer, useState, useEffect} from 'react';
+import {StyleSheet, Text, ScrollView, View, Pressable} from 'react-native';
+import Button from '../../src/UI/button';
+import CustomTextInput from '../../src/UI/textinput';
+import {useNavigation} from '@react-navigation/native';
 import {
-  StyleSheet,
-  Text,
-  ScrollView,
-  View,
-  TextInput,
-  Button,
-} from 'react-native';
+  HIGHLY_UNSTABLE,
+  UNSTABLE,
+  VULNERABLE,
+  SAFE,
+  VERY_SAFE,
+} from '../../src/utils/dump-classfication-result-constants';
 
 export default function DumpClassification() {
   const initialValue = {
@@ -64,15 +67,20 @@ export default function DumpClassification() {
   };
 
   const [state, dispatch] = useReducer(reducer, initialValue);
-  const [result, setResult] = useState('');
+  // const [result, setResult] = useState('');
   const [finalRating, setRating] = useState(0);
 
+  const navigation = useNavigation();
+
   const checkFOS = () => {
-    if (finalRating <= 30) setResult('Highly Unstable');
-    else if (finalRating <= 50) setResult('Unstable');
-    else if (finalRating <= 60) setResult('Vulnerable');
-    else if (finalRating <= 80) setResult('Safe');
-    else if (finalRating <= 100) setResult('Very Safe');
+    let result = '';
+    if (finalRating <= 30) result = HIGHLY_UNSTABLE;
+    else if (finalRating <= 50) result = UNSTABLE;
+    else if (finalRating <= 60) result = VULNERABLE;
+    else if (finalRating <= 80) result = SAFE;
+    else if (finalRating <= 100) result = VERY_SAFE;
+
+    navigation.navigate('Dump Classification Result', {result: result});
   };
 
   const handleClick = () => {
@@ -216,47 +224,35 @@ export default function DumpClassification() {
   };
 
   useEffect(() => {
-    checkFOS();
+    if (finalRating != 0) checkFOS();
   }, [finalRating]);
 
   return (
-    <ScrollView>
-      {initialKeys.map((item, index) => {
-        return (
-          <View key={index} style={styles.textBox}>
-            <Text>Enter {item}: </Text>
-            <TextInput
+    <ScrollView contentContainerStyle={styles.container}>
+      <View style={styles.textInput}>
+        {initialKeys.map((item, index) => {
+          return (
+            <CustomTextInput
+              key={index}
               placeholder={`Enter ${item}`}
+              placeholderTextColor="black"
               value={state[item]}
               onChangeText={e => dispatch({type: `changed_${item}`, value: e})}
-              style={styles.textInput}
             />
-          </View>
-        );
-      })}
-      <Button color={'blue'} title="Calculate" onPress={handleClick} />
-      <View>
-        {finalRating != 0 && (
-          <Text>
-            Result: {result} with Rating of {finalRating}
-          </Text>
-        )}
+          );
+        })}
       </View>
+      <Button text={'Calculate'} handlePress={handleClick} />
     </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  textBox: {
-    flexDirection: 'row',
-    padding: 10,
-    marginTop: 10,
-    alignItems: 'center',
-    justifyContent: 'center',
+  container: {
+    paddingVertical: 50,
   },
   textInput: {
-    borderColor: 'white',
-    borderWidth: 3,
-    width: '80%',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
