@@ -1,10 +1,10 @@
 import React from 'react';
 import {Text, View} from 'react-native';
 
-export default function RiskChart() {
+export default function SafetyChart() {
   return (
     <View>
-      <Text>RiskChart</Text>
+      <Text>Safety Chart</Text>
     </View>
   );
 }
