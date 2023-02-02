@@ -2,23 +2,47 @@ import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import DumpClassification from './screens/dump-classification/dump-classification';
 import Home from './screens/home/home';
-import RiskChart from './screens/risk-chart/risk-chart';
+import SafetyChart from './screens/safety-chart/safety-chart';
 import MachineLearning from './screens/machine-learning/machine-learning';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import DumpClassificationResult from './src/components/dump-classification/dump-classification-result';
+import MachineLearningResult from './src/components/machine-learning/machine-learning-result';
+import SafetyChartResult from './src/components/safety-chart/safety-chart-result';
+
+const Stack = createNativeStackNavigator();
 
 export default function () {
   return (
-    <View style={styles.container}>
-      {/* <Home /> */}
-      {/* <DumpClassification /> */}
-      <MachineLearning />
-      {/* <RiskChart /> */}
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Home">
+        <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen
+          name="Dump Classification"
+          component={DumpClassification}
+        />
+        <Stack.Screen name="Machine Learning" component={MachineLearning} />
+        <Stack.Screen name="Safety Chart" component={SafetyChart} />
+        <Stack.Screen
+          name="Dump Classification Result"
+          component={DumpClassificationResult}
+        />
+        <Stack.Screen
+          name="Machine Learning Result"
+          component={MachineLearningResult}
+        />
+        <Stack.Screen
+          name="Safety Chart Result"
+          component={SafetyChartResult}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'black',
-  },
-});
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     backgroundColor: 'black',
+//   },
+// });

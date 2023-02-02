@@ -1,12 +1,13 @@
 import React, {useReducer, useState, useEffect} from 'react';
+import {useNavigation} from '@react-navigation/native';
 import {
-  StyleSheet,
-  Text,
-  ScrollView,
-  View,
-  TextInput,
-  Button,
-} from 'react-native';
+  HIGHLY_UNSTABLE,
+  UNSTABLE,
+  VULNERABLE,
+  SAFE,
+  VERY_SAFE,
+} from '../../src/utils/dump-classfication-result-constants';
+import CustomForm from '../../src/components/common/custom-form';
 
 export default function DumpClassification() {
   const initialValue = {
@@ -64,15 +65,17 @@ export default function DumpClassification() {
   };
 
   const [state, dispatch] = useReducer(reducer, initialValue);
-  const [result, setResult] = useState('');
-  const [finalRating, setRating] = useState(0);
+  const navigation = useNavigation();
 
-  const checkFOS = () => {
-    if (finalRating <= 30) setResult('Highly Unstable');
-    else if (finalRating <= 50) setResult('Unstable');
-    else if (finalRating <= 60) setResult('Vulnerable');
-    else if (finalRating <= 80) setResult('Safe');
-    else if (finalRating <= 100) setResult('Very Safe');
+  const checkFOS = rating => {
+    let result = '';
+    if (rating <= 30) result = HIGHLY_UNSTABLE;
+    else if (rating <= 50) result = UNSTABLE;
+    else if (rating <= 60) result = VULNERABLE;
+    else if (rating <= 80) result = SAFE;
+    else if (rating <= 100) result = VERY_SAFE;
+
+    navigation.navigate('Dump Classification Result', {result: result});
   };
 
   const handleClick = () => {
@@ -211,52 +214,16 @@ export default function DumpClassification() {
     rating +=
       state.f < 40 ? Math.floor((state.f >= 5 ? state.f - 5 : 0) / 5) * 4 : 28;
 
-    setRating(rating);
-    // checkFOS();
+    checkFOS(rating);
   };
 
-  useEffect(() => {
-    checkFOS();
-  }, [finalRating]);
-
   return (
-    <ScrollView>
-      {initialKeys.map((item, index) => {
-        return (
-          <View key={index} style={styles.textBox}>
-            <Text>Enter {item}: </Text>
-            <TextInput
-              placeholder={`Enter ${item}`}
-              value={state[item]}
-              onChangeText={e => dispatch({type: `changed_${item}`, value: e})}
-              style={styles.textInput}
-            />
-          </View>
-        );
-      })}
-      <Button color={'blue'} title="Calculate" onPress={handleClick} />
-      <View>
-        {finalRating != 0 && (
-          <Text>
-            Result: {result} with Rating of {finalRating}
-          </Text>
-        )}
-      </View>
-    </ScrollView>
+    <CustomForm
+      state={state}
+      btnText="Predict FOS Class"
+      initialKeys={initialKeys}
+      handleClick={handleClick}
+      dispatch={dispatch}
+    />
   );
 }
-
-const styles = StyleSheet.create({
-  textBox: {
-    flexDirection: 'row',
-    padding: 10,
-    marginTop: 10,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  textInput: {
-    borderColor: 'white',
-    borderWidth: 3,
-    width: '80%',
-  },
-});
