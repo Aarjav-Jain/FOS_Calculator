@@ -7,6 +7,8 @@ import MachineLearning from './screens/machine-learning/machine-learning';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import DumpClassificationResult from './src/components/dump-classification/dump-classification-result';
+import MachineLearningResult from './src/components/machine-learning/machine-learning-result';
+import SafetyChartResult from './src/components/safety-chart/safety-chart-result';
 
 const Stack = createNativeStackNavigator();
 
@@ -24,6 +26,14 @@ export default function () {
         <Stack.Screen
           name="Dump Classification Result"
           component={DumpClassificationResult}
+        />
+        <Stack.Screen
+          name="Machine Learning Result"
+          component={MachineLearningResult}
+        />
+        <Stack.Screen
+          name="Safety Chart Result"
+          component={SafetyChartResult}
         />
       </Stack.Navigator>
     </NavigationContainer>

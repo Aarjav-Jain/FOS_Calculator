@@ -24,7 +24,6 @@ export default function DumpClassificationResult({route}) {
   };
 
   const bgColor = getBgColor();
-  console.log(result);
   return (
     <View style={styles.container}>
       <View

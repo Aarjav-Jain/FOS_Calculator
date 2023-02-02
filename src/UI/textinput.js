@@ -1,10 +1,12 @@
 import {StyleSheet, TextInput} from 'react-native';
 
 export default function CustomTextInput({
-  placeholder,
+  placeholder = '',
   placeholderTextColor = 'black',
   value,
   onChangeText,
+  keyboardType,
+  inputMode,
 }) {
   return (
     <TextInput
@@ -13,6 +15,8 @@ export default function CustomTextInput({
       value={value}
       onChangeText={onChangeText}
       style={styles.inputText}
+      keyboardType={keyboardType}
+      inputMode={inputMode}
     />
   );
 }

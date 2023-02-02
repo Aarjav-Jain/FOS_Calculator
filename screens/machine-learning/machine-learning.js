@@ -1,14 +1,8 @@
-import React, {useReducer, useState, useEffect} from 'react';
-import {
-  StyleSheet,
-  Text,
-  ScrollView,
-  View,
-  TextInput,
-  Button,
-} from 'react-native';
+import {useReducer} from 'react';
+import {useNavigation} from '@react-navigation/native';
+import CustomForm from '../../src/components/common/custom-form';
 
-export default function MachineLearning() {
+export default function DumpClassification() {
   const initialValue = {
     A1: null,
     H1: null,
@@ -64,38 +58,19 @@ export default function MachineLearning() {
   };
 
   const [state, dispatch] = useReducer(reducer, initialValue);
+  const navigation = useNavigation();
+
+  const handleClick = () => {
+    console.log('iskdas');
+  };
 
   return (
-    <ScrollView>
-      {initialKeys.map((item, index) => {
-        return (
-          <View key={index} style={styles.textBox}>
-            <Text>Enter {item}: </Text>
-            <TextInput
-              placeholder={`Enter ${item}`}
-              value={state[item]}
-              onChangeText={e => dispatch({type: `changed_${item}`, value: e})}
-              style={styles.textInput}
-            />
-          </View>
-        );
-      })}
-      <Button color={'blue'} title="Calculate" />
-    </ScrollView>
+    <CustomForm
+      state={state}
+      btnText="Predict FOS"
+      initialKeys={initialKeys}
+      handleClick={handleClick}
+      dispatch={dispatch}
+    />
   );
 }
-
-const styles = StyleSheet.create({
-  textBox: {
-    flexDirection: 'row',
-    padding: 10,
-    marginTop: 10,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  textInput: {
-    borderColor: 'white',
-    borderWidth: 3,
-    width: '80%',
-  },
-});
