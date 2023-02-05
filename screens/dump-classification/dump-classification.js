@@ -8,8 +8,10 @@ import {
   VERY_SAFE,
 } from '../../src/utils/dump-classfication-result-constants';
 import CustomForm from '../../src/components/common/custom-form';
+import * as Validator from 'validatorjs';
 
 export default function DumpClassification() {
+  // nested object with name and id fields different
   const initialValue = {
     A1: null,
     H1: null,
@@ -64,8 +66,59 @@ export default function DumpClassification() {
     }
   };
 
+  // TODO: send these ruls to the common component and then run it through a function on click and if it passes
+  // execute handleclick prop
+  // const rules = {
+  //   A1: 'required|numeric',
+  //   H1: 'required|numeric',
+  //   A2: 'required|numeric',
+  //   H2: 'required|numeric',
+  //   BW1: 'required|numeric',
+  //   BW2: 'required|numeric',
+  //   CrH: 'required|numeric',
+  //   CrBw: 'required|numeric',
+  //   Dip: 'required|numeric',
+  //   C: 'required|numeric',
+  //   f: 'required|numeric',
+  // };
+
   const [state, dispatch] = useReducer(reducer, initialValue);
+  // const [errObj, setErrorObj] = useState({
+  //   A1: '',
+  //   H1: '',
+  //   A2: '',
+  //   H2: '',
+  //   BW1: '',
+  //   BW2: '',
+  //   CrH: '',
+  //   CrBw: '',
+  //   Dip: '',
+  //   C: '',
+  //   f: '',
+  // });
+
   const navigation = useNavigation();
+
+  // const validateInput = () => {
+  //   let validation = new Validator(initialValue, rules);
+  //   if (validation.fails()) {
+  //     setErrorObj({
+  //       A1: validation.has(A1),
+  //       H1: validation.has(H1),
+  //       A2: validation.has(A2),
+  //       H2: validation.has(H2),
+  //       BW1: validation.has(BW1),
+  //       BW2: validation.has(BW2),
+  //       CrH: validation.has(CrH),
+  //       CrBw: validation.has(CrBw),
+  //       Dip: validation.has(Dip),
+  //       C: validation.has(C),
+  //       f: validation.has(F),
+  //     });
+  //     return false;
+  //   }
+  //   return true;
+  // };
 
   const checkFOS = rating => {
     let result = '';
@@ -79,6 +132,8 @@ export default function DumpClassification() {
   };
 
   const handleClick = () => {
+    if (!validateInput()) return;
+
     let rating = 0;
 
     // if (state.A1 < 30) rating += 20;
