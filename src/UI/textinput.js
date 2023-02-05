@@ -20,27 +20,31 @@ export default function CustomTextInput({
         keyboardType={keyboardType}
         inputMode={inputMode}
       />
-      <Icon name="error-outline" size={30} color="#e63c3c" />
+      <Icon
+        name="error-outline"
+        size={30}
+        color="#e63c3c"
+        style={{marginRight: 20}}
+      />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   inputText: {
-    // borderWidth: StyleSheet.hairlineWidth,
     color: 'black',
     paddingVertical: 20,
-    //FIXME: change this to less when there is no error icon to be shown
-    paddingHorizontal: 10,
-    width: '80%',
+    flex: 1,
     fontSize: 18,
+    marginLeft: 20,
+    // backgroundColor: 'blue',
   },
   customInputBox: {
     width: '80%',
     // backgroundColor: 'green',
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
+    // justifyContent: 'center',
     borderColor: 'black',
     borderWidth: StyleSheet.hairlineWidth,
     borderRadius: 10,
