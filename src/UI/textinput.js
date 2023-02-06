@@ -1,4 +1,5 @@
-import {StyleSheet, TextInput} from 'react-native';
+import {StyleSheet, TextInput, View} from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 export default function CustomTextInput({
   placeholder = '',
@@ -7,28 +8,49 @@ export default function CustomTextInput({
   onChangeText,
   keyboardType,
   inputMode,
+  hasError = false,
 }) {
   return (
-    <TextInput
-      placeholder={placeholder}
-      placeholderTextColor={placeholderTextColor}
-      value={value}
-      onChangeText={onChangeText}
-      style={styles.inputText}
-      keyboardType={keyboardType}
-      inputMode={inputMode}
-    />
+    <View style={styles.customInputBox}>
+      <TextInput
+        placeholder={placeholder}
+        placeholderTextColor={placeholderTextColor}
+        value={value}
+        onChangeText={onChangeText}
+        style={styles.inputText}
+        keyboardType={keyboardType}
+        inputMode={inputMode}
+      />
+      {hasError && (
+        <Icon
+          name="error-outline"
+          size={30}
+          color="#e63c3c"
+          style={{marginRight: 20}}
+        />
+      )}
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   inputText: {
-    borderWidth: StyleSheet.hairlineWidth,
     color: 'black',
-    paddingHorizontal: 20,
-    paddingVertical: 15,
+    paddingVertical: 20,
+    flex: 1,
+    fontSize: 18,
+    marginLeft: 20,
+    // backgroundColor: 'blue',
+  },
+  customInputBox: {
     width: '80%',
-    marginVertical: 10,
+    // backgroundColor: 'green',
+    flexDirection: 'row',
+    alignItems: 'center',
+    // justifyContent: 'center',
+    borderColor: 'black',
+    borderWidth: StyleSheet.hairlineWidth,
     borderRadius: 10,
+    marginTop: 20,
   },
 });

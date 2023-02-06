@@ -9,8 +9,6 @@ export default function SafetyChart() {
     Sa: null,
   };
 
-  const initialKeys = Object.keys(initialValue);
-
   const reducer = (state, action) => {
     switch (action.type) {
       case 'changed_CrH': {
@@ -36,7 +34,7 @@ export default function SafetyChart() {
     <CustomForm
       state={state}
       btnText="Predict Class"
-      initialKeys={initialKeys}
+      values={initialValue}
       handleClick={handleClick}
       dispatch={dispatch}
     />

@@ -10,6 +10,7 @@ import {
 import CustomForm from '../../src/components/common/custom-form';
 
 export default function DumpClassification() {
+  // nested object with name and id fields different
   const initialValue = {
     A1: null,
     H1: null,
@@ -23,8 +24,6 @@ export default function DumpClassification() {
     C: null,
     f: null,
   };
-
-  const initialKeys = Object.keys(initialValue);
 
   const reducer = (state, action) => {
     switch (action.type) {
@@ -221,7 +220,7 @@ export default function DumpClassification() {
     <CustomForm
       state={state}
       btnText="Predict FOS Class"
-      initialKeys={initialKeys}
+      values={initialValue}
       handleClick={handleClick}
       dispatch={dispatch}
     />

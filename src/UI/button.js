@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     // borderRadius: 10,
     backgroundColor: 'black',
     width: '80%',
-    marginTop: 10,
+    marginTop: 20,
   },
   btnText: {
     fontSize: 16,

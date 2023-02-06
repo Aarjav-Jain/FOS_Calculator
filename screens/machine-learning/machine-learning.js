@@ -17,8 +17,6 @@ export default function DumpClassification() {
     f: null,
   };
 
-  const initialKeys = Object.keys(initialValue);
-
   const reducer = (state, action) => {
     switch (action.type) {
       case 'changed_H1': {
@@ -68,7 +66,7 @@ export default function DumpClassification() {
     <CustomForm
       state={state}
       btnText="Predict FOS"
-      initialKeys={initialKeys}
+      values={initialValue}
       handleClick={handleClick}
       dispatch={dispatch}
     />
