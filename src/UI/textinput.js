@@ -8,6 +8,7 @@ export default function CustomTextInput({
   onChangeText,
   keyboardType,
   inputMode,
+  hasError = false,
 }) {
   return (
     <View style={styles.customInputBox}>
@@ -20,12 +21,14 @@ export default function CustomTextInput({
         keyboardType={keyboardType}
         inputMode={inputMode}
       />
-      <Icon
-        name="error-outline"
-        size={30}
-        color="#e63c3c"
-        style={{marginRight: 20}}
-      />
+      {hasError && (
+        <Icon
+          name="error-outline"
+          size={30}
+          color="#e63c3c"
+          style={{marginRight: 20}}
+        />
+      )}
     </View>
   );
 }
