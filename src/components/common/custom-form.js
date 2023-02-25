@@ -30,7 +30,7 @@ export default function CustomForm({
 
   const validateInput = () => {
     //FIXME: call handelClick
-    if (!declareErrorObj()) console.log('handleClicked');
+    if (!declareErrorObj()) handleClick();
   };
 
   return (

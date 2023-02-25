@@ -12,7 +12,7 @@ import SafetyChartResult from './src/components/safety-chart/safety-chart-result
 
 const Stack = createNativeStackNavigator();
 
-export default function () {
+export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home">

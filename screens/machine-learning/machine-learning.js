@@ -1,8 +1,9 @@
-import {useReducer} from 'react';
+import {useEffect, useReducer, useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import CustomForm from '../../src/components/common/custom-form';
+import {getMLPrediction} from '../../src/utils/apis/modelApi';
 
-export default function DumpClassification() {
+export default function MachineLearning() {
   const initialValue = {
     A1: null,
     H1: null,
@@ -56,10 +57,23 @@ export default function DumpClassification() {
   };
 
   const [state, dispatch] = useReducer(reducer, initialValue);
+  const [isLoading, setLoading] = useState(false);
+
   const navigation = useNavigation();
 
-  const handleClick = () => {
-    console.log('iskdas');
+  const handleClick = async () => {
+    setLoading(true);
+    const predictionValues = state;
+    const unFormattedValues = Object.values(predictionValues);
+    const predictionArray = unFormattedValues.map(i => Number(i));
+    try {
+      const res = await getMLPrediction(predictionArray);
+      setLoading(false);
+      navigation.navigate('Machine Learning Result', {predictedValue: res});
+    } catch (e) {
+      console.log('could not get prediction', e);
+      setLoading(false);
+    }
   };
 
   return (
