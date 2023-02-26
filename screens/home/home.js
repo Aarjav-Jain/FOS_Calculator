@@ -1,27 +1,35 @@
 import {useNavigation} from '@react-navigation/native';
 import React from 'react';
-import {StyleSheet, Text, TouchableHighlight, View} from 'react-native';
+import {ScrollView, StyleSheet, Text, View} from 'react-native';
+import Card from '../../src/UI/card';
 
 export default function Home() {
   const navigation = useNavigation();
 
   return (
     <View style={styles.container}>
-      <TouchableHighlight
-        style={styles.card}
-        onPress={() => navigation.navigate('Dump Classification')}>
-        <Text>Dump Classification</Text>
-      </TouchableHighlight>
-      <TouchableHighlight
-        style={styles.card}
-        onPress={() => navigation.navigate('Machine Learning')}>
-        <Text>Machine Learning</Text>
-      </TouchableHighlight>
-      <TouchableHighlight
-        style={styles.card}
-        onPress={() => navigation.navigate('Safety Chart')}>
-        <Text>Safety Chart</Text>
-      </TouchableHighlight>
+      <ScrollView
+        contentContainerStyle={{
+          justifyContent: 'space-around',
+          alignItems: 'center',
+          flexGrow: 1,
+        }}>
+        <Card
+          textHeading="Dump Classification"
+          navigateTo="Dump Classification"
+          description="Classify your slope into Safe, Vulerable or Fail"
+        />
+        <Card
+          textHeading="Machine Learning"
+          navigateTo="Machine Learning"
+          description="Predict the FOS using pre-build ML model"
+        />
+        <Card
+          textHeading="Safety Chart"
+          navigateTo="Safety Chart"
+          description="Classify the slability of your slope by 3 parameters"
+        />
+      </ScrollView>
     </View>
   );
 }
@@ -29,14 +37,10 @@ export default function Home() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'space-evenly',
-  },
-  card: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: 200,
-    width: 200,
-    backgroundColor: 'purple',
+    backgroundColor: 'white',
+    borderTopColor: 'grey',
+    borderTopWidth: 0.9,
+    // alignItems: 'center',
+    // justifyContent: 'space-evenly',
   },
 });
