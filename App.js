@@ -9,6 +9,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import DumpClassificationResult from './src/components/dump-classification/dump-classification-result';
 import MachineLearningResult from './src/components/machine-learning/machine-learning-result';
 import SafetyChartResult from './src/components/safety-chart/safety-chart-result';
+import Navbar from './src/UI/navbar';
 
 const Stack = createNativeStackNavigator();
 
@@ -16,7 +17,11 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen
+          name="Home"
+          component={Home}
+          options={{headerTitle: () => <Navbar />, headerShadowVisible: false}}
+        />
         <Stack.Screen
           name="Dump Classification"
           component={DumpClassification}
