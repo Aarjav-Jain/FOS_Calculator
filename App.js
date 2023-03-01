@@ -13,7 +13,7 @@ import Navbar from './src/UI/navbar';
 
 const Stack = createNativeStackNavigator();
 
-export default function () {
+export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home">
