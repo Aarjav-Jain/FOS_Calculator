@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import {ScrollView, View, StyleSheet, Text} from 'react-native';
 import Button from '../../UI/button';
 import CustomTextInput from '../../UI/textinput';
@@ -9,14 +9,25 @@ export default function CustomForm({
   values,
   handleClick,
   dispatch,
+  result,
   placeholderTextColor = 'black',
   keyboardType = 'numeric',
   inputMode = 'decimal',
+  setResult,
 }) {
   const initialKeys = Object.keys(values);
   const [errObj, setErrObj] = useState({});
+  const scrollRef = useRef();
+
+  const scrollToTop = () => {
+    scrollRef.current?.scrollTo({
+      y: 0,
+      animated: true,
+    });
+  };
 
   const declareErrorObj = () => {
+    setResult(null);
     const error = {};
     let hasError = false;
     // required && only numeric values allowed
@@ -28,13 +39,23 @@ export default function CustomForm({
     return hasError;
   };
 
-  const validateInput = () => {
-    //FIXME: call handelClick
-    if (!declareErrorObj()) handleClick();
+  const validateInput = async () => {
+    if (!declareErrorObj()) await handleClick();
   };
 
+  useEffect(() => {
+    result && scrollToTop();
+  },[result])
+
   return (
-    <ScrollView contentContainerStyle={styles.container}>
+    <ScrollView contentContainerStyle={styles.container} ref={scrollRef}>
+      {result && (
+        <View style={styles.result}>
+          <Text style={{color: 'black', fontSize: 20}}>
+            Calculated FOS is: {result}
+          </Text>
+        </View>
+      )}
       <View style={styles.textInput}>
         {initialKeys.map((item, index) => {
           return (
@@ -61,7 +82,12 @@ export default function CustomForm({
           );
         })}
       </View>
-      <Button text={btnText} handlePress={validateInput} />
+      <Button
+        text={btnText}
+        handlePress={() => {
+          validateInput();
+        }}
+      />
     </ScrollView>
   );
 }
@@ -69,6 +95,15 @@ export default function CustomForm({
 const styles = StyleSheet.create({
   container: {
     paddingVertical: 50,
+    alignItems: 'center',
+  },
+  result: {
+    padding: 10,
+    borderWidth: 3,
+    borderColor: 'black',
+    color: 'black',
+    width: '80%',
+    alignItems: 'center',
   },
   textInput: {
     alignItems: 'center',

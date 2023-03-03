@@ -1,4 +1,4 @@
-import {useEffect, useReducer, useState} from 'react';
+import {useReducer, useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import CustomForm from '../../src/components/common/custom-form';
 import {getMLPrediction} from '../../src/utils/apis/modelApi';
@@ -57,22 +57,20 @@ export default function MachineLearning() {
   };
 
   const [state, dispatch] = useReducer(reducer, initialValue);
-  const [isLoading, setLoading] = useState(false);
+  const [result, setResult] = useState(null);
 
   const navigation = useNavigation();
 
   const handleClick = async () => {
-    setLoading(true);
     const predictionValues = state;
     const unFormattedValues = Object.values(predictionValues);
     const predictionArray = unFormattedValues.map(i => Number(i));
     try {
       const res = await getMLPrediction(predictionArray);
-      setLoading(false);
-      navigation.navigate('Machine Learning Result', {predictedValue: res});
+      setResult(res);
     } catch (e) {
       console.log('could not get prediction', e);
-      setLoading(false);
+      setResult(null);
     }
   };
 
@@ -83,6 +81,8 @@ export default function MachineLearning() {
       values={initialValue}
       handleClick={handleClick}
       dispatch={dispatch}
+      result={result}
+      setResult = {setResult}
     />
   );
 }
