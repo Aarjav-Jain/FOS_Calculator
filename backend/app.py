@@ -6,7 +6,8 @@ import numpy as np
 # we define a variable called app
 app = Flask(__name__) 
 
-model = load_model('model_NN_accurate.h5')
+modelML = load_model('model_NN_accurate.h5')
+modelSC = load_model('model_safety_chart.h5')
 
 # TODO: 
 # make two routes
@@ -17,16 +18,29 @@ model = load_model('model_NN_accurate.h5')
 
 def makePredictionML(data):
     newData = np.array(data)
-    prediction = model.predict(newData.reshape(1,11))
+    prediction = modelML.predict(newData.reshape(1,11))
     return(prediction[0][0])
 
+def makePredictionSafetyChart(data):
+    newData = np.array(data)
+    prediction = modelSC.predict(newData.reshape(1,3))
+    return (prediction[0][0])
 
 @app.route("/models/machine_learning",methods=['POST'])
 def MLResult():
     if(request.method == 'POST'):
         data = request.get_json(force=True)
-        predictionValue = makePredictionML(data)
-        return str(predictionValue)
+        predictedValue = makePredictionML(data)
+        return str(predictedValue)
+    
+@app.route("/models/safety_chart",methods=['POST'])
+def SafetyChartResult():
+    if(request.method == 'POST'):
+        data = request.get_json(force=True)
+        # print(data)
+        predictedValue = makePredictionSafetyChart(data)
+        return str(predictedValue)
+        # return 'data recieved'
 
 @app.route('/test')
 def test():
