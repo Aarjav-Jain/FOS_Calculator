@@ -1,6 +1,7 @@
 import {useNavigation} from '@react-navigation/native';
-import {useReducer} from 'react';
+import {useReducer, useState} from 'react';
 import CustomForm from '../../src/components/common/custom-form';
+import {getSafetyChartPrediction} from '../../src/utils/apis/modelApi';
 
 export default function SafetyChart() {
   const initialValue = {
@@ -24,10 +25,43 @@ export default function SafetyChart() {
   };
 
   const [state, dispatch] = useReducer(reducer, initialValue);
+  const [isLoading, setLoading] = useState(false);
   const navigation = useNavigation();
 
-  const handleClick = () => {
-    console.log('handleClicked');
+  function calcDistance(a, b) {
+    return Math.sqrt(Math.pow(a, 2) + Math.pow(b, 2));
+  }
+
+  function calcIncenter(x1, x2, x3) {
+    const a = calcDistance(x2, x3);
+    const b = calcDistance(x1, x3);
+    const c = calcDistance(x1, x2);
+    const sum_of_sides = a + b + c;
+    const incenter1 = (a * x1) / sum_of_sides;
+    const incenter2 = (b * x2) / sum_of_sides;
+    const incenter3 = (c * x3) / sum_of_sides;
+    const ans = [incenter1, incenter2, incenter3];
+    return ans;
+  }
+
+  const handleClick = async () => {
+    setLoading(true);
+    const predictionValues = state;
+    const unFormattedValues = Object.values(predictionValues);
+    const numberArray = unFormattedValues.map(i => Number(i));
+    const x1 = numberArray[0];
+    const x2 = numberArray[1];
+    const x3 = numberArray[2];
+    const predictionArray = calcIncenter(x1, x2, x3);
+    // console.log(predictionArray);
+    try {
+      const res = await getSafetyChartPrediction(predictionArray);
+      setLoading(false);
+      navigation.navigate('Safety Chart Result', {predictedValue: res});
+    } catch (e) {
+      console.log('could not get safety chart prediction', e);
+      setLoading(false);
+    }
   };
 
   return (
