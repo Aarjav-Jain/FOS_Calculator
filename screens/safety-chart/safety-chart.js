@@ -25,7 +25,9 @@ export default function SafetyChart() {
   };
 
   const [state, dispatch] = useReducer(reducer, initialValue);
-  const [isLoading, setLoading] = useState(false);
+  const [result, setResult] = useState(null);
+
+  // const [isLoading, setLoading] = useState(false);
   const navigation = useNavigation();
 
   function calcDistance(a, b) {
@@ -45,7 +47,7 @@ export default function SafetyChart() {
   }
 
   const handleClick = async () => {
-    setLoading(true);
+    // setLoading(true);
     const predictionValues = state;
     const unFormattedValues = Object.values(predictionValues);
     const numberArray = unFormattedValues.map(i => Number(i));
@@ -56,11 +58,13 @@ export default function SafetyChart() {
     // console.log(predictionArray);
     try {
       const res = await getSafetyChartPrediction(predictionArray);
-      setLoading(false);
-      navigation.navigate('Safety Chart Result', {predictedValue: res});
+      // setLoading(false);
+      // navigation.navigate('Safety Chart Result', {predictedValue: res});
+      setResult(res);
     } catch (e) {
       console.log('could not get safety chart prediction', e);
-      setLoading(false);
+      setResult(null);
+      // setLoading(false);
     }
   };
 
@@ -71,6 +75,8 @@ export default function SafetyChart() {
       values={initialValue}
       handleClick={handleClick}
       dispatch={dispatch}
+      result={result}
+      setResult={setResult}
     />
   );
 }
