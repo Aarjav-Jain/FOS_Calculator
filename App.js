@@ -28,6 +28,9 @@ export default function App() {
         <Stack.Screen
           name="Dump Classification"
           component={DumpClassification}
+          options={{
+            headerRight: () => <LegendMLNav />,
+          }}
         />
         <Stack.Screen
           name="Machine Learning"

@@ -60,7 +60,10 @@ export default function SafetyChart() {
       const res = await getSafetyChartPrediction(predictionArray);
       // setLoading(false);
       // navigation.navigate('Safety Chart Result', {predictedValue: res});
-      setResult(res);
+      if (res < 1) setResult('Fail');
+      else if (res >= 1 && res <= 1.19) setResult('Vulnerable');
+      else setResult('Safe');
+      // setResult(res);
     } catch (e) {
       console.log('could not get safety chart prediction', e);
       setResult(null);
@@ -77,6 +80,7 @@ export default function SafetyChart() {
       dispatch={dispatch}
       result={result}
       setResult={setResult}
+      resultText={'FOS CLASS: '}
     />
   );
 }

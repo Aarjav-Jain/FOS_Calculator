@@ -14,6 +14,7 @@ export default function CustomForm({
   keyboardType = 'numeric',
   inputMode = 'decimal',
   setResult,
+  resultText = 'Calculated FOS is:',
 }) {
   const initialKeys = Object.keys(values);
   const [errObj, setErrObj] = useState({});
@@ -45,14 +46,14 @@ export default function CustomForm({
 
   useEffect(() => {
     result && scrollToTop();
-  },[result])
+  }, [result]);
 
   return (
     <ScrollView contentContainerStyle={styles.container} ref={scrollRef}>
       {result && (
         <View style={styles.result}>
           <Text style={{color: 'black', fontSize: 20}}>
-            Calculated FOS is: {result}
+            {resultText} {result}
           </Text>
         </View>
       )}
