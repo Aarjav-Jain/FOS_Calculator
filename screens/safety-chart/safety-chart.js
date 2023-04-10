@@ -6,8 +6,8 @@ import {getSafetyChartPrediction} from '../../src/utils/apis/modelApi';
 export default function SafetyChart() {
   const initialValue = {
     CrH: null,
-    Sh: null,
-    Sa: null,
+    H1: null,
+    A1: null,
   };
 
   const reducer = (state, action) => {
@@ -15,11 +15,11 @@ export default function SafetyChart() {
       case 'changed_CrH': {
         return {...state, CrH: action.value};
       }
-      case 'changed_Sh': {
-        return {...state, Sh: action.value};
+      case 'changed_H1': {
+        return {...state, H1: action.value};
       }
-      case 'changed_Sa': {
-        return {...state, Sa: action.value};
+      case 'changed_A1': {
+        return {...state, A1: action.value};
       }
     }
   };
