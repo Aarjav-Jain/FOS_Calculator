@@ -1,7 +1,7 @@
 import {View, Text, Image, ScrollView, StyleSheet} from 'react-native';
 import React from 'react';
 
-export default function LegendScreen() {
+export default function MLLegend() {
   return (
     <ScrollView>
       <ScrollView horizontal={true}>
