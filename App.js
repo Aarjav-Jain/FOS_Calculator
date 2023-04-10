@@ -9,8 +9,10 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import DumpClassificationResult from './src/components/dump-classification/dump-classification-result';
 import SafetyChartResult from './src/components/safety-chart/safety-chart-result';
 import Navbar from './src/UI/navbar';
-import MLLegend from './screens/machine-learning/legendscreen';
+import MLLegend from './screens/machine-learning/MLLegend';
 import LegendMLNav from './src/UI/legendMLNav';
+import LegendSCNav from './src/UI/legendSafetyChartNav';
+import SCLegend from './screens/safety-chart/SCLegend';
 
 const Stack = createNativeStackNavigator();
 
@@ -34,7 +36,13 @@ export default function App() {
             headerRight: () => <LegendMLNav />,
           }}
         />
-        <Stack.Screen name="Safety Chart" component={SafetyChart} />
+        <Stack.Screen
+          name="Safety Chart"
+          component={SafetyChart}
+          options={{
+            headerRight: () => <LegendSCNav />,
+          }}
+        />
         <Stack.Screen
           name="Dump Classification Result"
           component={DumpClassificationResult}
@@ -44,6 +52,7 @@ export default function App() {
           component={SafetyChartResult}
         />
         <Stack.Screen name="ML Legend Screen" component={MLLegend} />
+        <Stack.Screen name="Safety Chart Legend Screen" component={SCLegend} />
       </Stack.Navigator>
     </NavigationContainer>
   );
