@@ -64,17 +64,20 @@ export default function DumpClassification() {
   };
 
   const [state, dispatch] = useReducer(reducer, initialValue);
+  const [result, setResult] = useState('');
   const navigation = useNavigation();
 
   const checkFOS = rating => {
-    let result = '';
-    if (rating <= 30) result = HIGHLY_UNSTABLE;
-    else if (rating <= 50) result = UNSTABLE;
-    else if (rating <= 60) result = VULNERABLE;
-    else if (rating <= 80) result = SAFE;
-    else if (rating <= 100) result = VERY_SAFE;
+    let result_temp = '';
+    if (rating <= 30) result_temp = HIGHLY_UNSTABLE;
+    else if (rating <= 50) result_temp = UNSTABLE;
+    else if (rating <= 60) result_temp = VULNERABLE;
+    else if (rating <= 80) result_temp = SAFE;
+    else if (rating <= 100) result_temp = VERY_SAFE;
 
-    navigation.navigate('Dump Classification Result', {result: result});
+    setResult(result_temp);
+
+    navigation.navigate('Dump Classification Result', {result: result_temp});
   };
 
   const handleClick = () => {
@@ -223,6 +226,8 @@ export default function DumpClassification() {
       values={initialValue}
       handleClick={handleClick}
       dispatch={dispatch}
+      result={result}
+      setResult={setResult}
     />
   );
 }
