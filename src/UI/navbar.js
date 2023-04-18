@@ -1,5 +1,6 @@
 import {Text, View, Image, StyleSheet} from 'react-native';
 import React from 'react';
+import {horizontalScale, verticalScale, moderateScale} from '../utils/metrics';
 
 export default function Navbar() {
   return (
@@ -12,11 +13,13 @@ export default function Navbar() {
           alignItems: 'center',
           justifyContent: 'center',
         }}>
-        <Text style={{color: 'black', fontSize: 35}}>Dump Slope Stability</Text>
+        <Text style={{color: 'black', fontSize: moderateScale(35)}}>
+          Dump Slope Stability
+        </Text>
       </View>
       <Image
         source={require('../assets/mining.png')}
-        style={{width: 150, height: 150}}
+        style={{width: horizontalScale(130), height: verticalScale(130)}}
       />
     </View>
   );
@@ -24,7 +27,7 @@ export default function Navbar() {
 
 const styles = StyleSheet.create({
   container: {
-    paddingVertical: 10,
+    paddingVertical: verticalScale(10),
     flexDirection: 'row',
   },
 });

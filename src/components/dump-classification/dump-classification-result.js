@@ -7,6 +7,11 @@ import {
   SAFE,
   VERY_SAFE,
 } from '../../utils/dump-classfication-result-constants';
+import {
+  horizontalScale,
+  verticalScale,
+  moderateScale,
+} from '../../utils/metrics';
 
 // show different colours for outcomes eg red for fail
 //green for safe and yellow for vulureable
@@ -49,16 +54,16 @@ const styles = StyleSheet.create({
   card: {
     justifyContent: 'center',
     alignItems: 'center',
-    width: 300,
-    height: 300,
-    borderRadius: 30,
+    width: horizontalScale(300),
+    height: verticalScale(300),
+    borderRadius: moderateScale(30),
   },
   cardText: {
-    fontSize: 20,
+    fontSize: moderateScale(20),
     color: 'black',
   },
   result: {
     fontWeight: 900,
-    fontSize: 32,
+    fontSize: moderateScale(32),
   },
 });
