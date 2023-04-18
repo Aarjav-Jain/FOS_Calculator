@@ -1,5 +1,10 @@
 import {View, Text, Image, ScrollView, StyleSheet} from 'react-native';
 import React from 'react';
+import {
+  horizontalScale,
+  verticalScale,
+  moderateScale,
+} from '../../src/utils/metrics';
 
 export default function MLLegend() {
   return (
@@ -11,7 +16,11 @@ export default function MLLegend() {
         />
       </ScrollView>
       <View
-        style={{marginLeft: 10, borderTopColor: 'black', borderTopWidth: 2}}>
+        style={{
+          marginLeft: horizontalScale(10),
+          borderTopColor: 'black',
+          borderTopWidth: verticalScale(2),
+        }}>
         <Text style={styles.customText}>
           <Text style={{fontWeight: 'bold'}}>A1</Text>= Slope angle of the bench
           between coal-rib roof and dragline sitting level
@@ -51,5 +60,9 @@ export default function MLLegend() {
 }
 
 const styles = StyleSheet.create({
-  customText: {color: 'black', fontSize: 18, marginBottom: 4},
+  customText: {
+    color: 'black',
+    fontSize: moderateScale(18),
+    marginBottom: verticalScale(4),
+  },
 });

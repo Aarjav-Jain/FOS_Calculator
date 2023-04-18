@@ -1,6 +1,7 @@
 import {View, Text, StyleSheet, TouchableWithoutFeedback} from 'react-native';
 import React from 'react';
 import {useNavigation} from '@react-navigation/native';
+import {horizontalScale, verticalScale, moderateScale} from '../utils/metrics';
 
 export default function Card({textHeading, navigateTo, description}) {
   const navigation = useNavigation();
@@ -8,17 +9,22 @@ export default function Card({textHeading, navigateTo, description}) {
     <TouchableWithoutFeedback onPress={() => navigation.navigate(navigateTo)}>
       <View style={styles.cardContainer}>
         <View style={styles.cardHeading}>
-          <Text style={{fontSize: 24}}>{textHeading}</Text>
+          <Text style={{fontSize: moderateScale(24)}}>{textHeading}</Text>
         </View>
         <View style={styles.cardBody}>
-          <Text style={{fontSize: 24, color: 'black', fontWeight: 'bold'}}>
+          <Text
+            style={{
+              fontSize: moderateScale(24),
+              color: 'black',
+              fontWeight: 'bold',
+            }}>
             {textHeading}
           </Text>
           <Text
             style={{
               color: 'black',
-              fontSize: 18,
-              paddingVertical: 10,
+              fontSize: moderateScale(18),
+              paddingVertical: verticalScale(10),
             }}>
             {description}
           </Text>
@@ -33,23 +39,23 @@ const styles = StyleSheet.create({
     // borderWidth: 2,
     // borderColor: 'grey',
     // borderRadius: 15,
-    width: 300,
-    marginVertical: 15,
+    width: horizontalScale(300),
+    marginVertical: verticalScale(15),
   },
   cardHeading: {
-    paddingVertical: 50,
+    paddingVertical: verticalScale(50),
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: 'green',
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
+    borderTopLeftRadius: moderateScale(20),
+    borderTopRightRadius: moderateScale(20),
   },
   cardBody: {
-    paddingVertical: 25,
-    paddingHorizontal: 25,
-    borderWidth: 1,
-    borderBottomLeftRadius: 20,
-    borderBottomRightRadius: 20,
+    paddingVertical: verticalScale(25),
+    paddingHorizontal: horizontalScale(25),
+    borderWidth: horizontalScale(1),
+    borderBottomLeftRadius: moderateScale(20),
+    borderBottomRightRadius: moderateScale(20),
     borderTopWidth: 0,
     backgroundColor: 'white',
     borderColor: 'grey',

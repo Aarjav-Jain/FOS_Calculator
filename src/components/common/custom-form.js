@@ -2,6 +2,11 @@ import {useEffect, useRef, useState} from 'react';
 import {ScrollView, View, StyleSheet, Text} from 'react-native';
 import Button from '../../UI/button';
 import CustomTextInput from '../../UI/textinput';
+import {
+  horizontalScale,
+  verticalScale,
+  moderateScale,
+} from '../../utils/metrics';
 
 export default function CustomForm({
   btnText,
@@ -95,12 +100,13 @@ export default function CustomForm({
 
 const styles = StyleSheet.create({
   container: {
-    paddingVertical: 50,
+    paddingVertical: verticalScale(50),
     alignItems: 'center',
   },
   result: {
-    padding: 10,
-    borderWidth: 3,
+    paddingHorizontal: horizontalScale(10),
+    paddingVertical: verticalScale(10),
+    borderWidth: moderateScale(3),
     borderColor: 'black',
     color: 'black',
     width: '80%',
@@ -112,6 +118,6 @@ const styles = StyleSheet.create({
   },
   errorMsg: {
     color: '#db3535',
-    fontSize: 16,
+    fontSize: moderateScale(16),
   },
 });

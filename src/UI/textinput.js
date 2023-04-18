@@ -1,5 +1,6 @@
 import {StyleSheet, TextInput, View} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import {horizontalScale, moderateScale, verticalScale} from '../utils/metrics';
 
 export default function CustomTextInput({
   placeholder = '',
@@ -26,7 +27,7 @@ export default function CustomTextInput({
           name="error-outline"
           size={30}
           color="#e63c3c"
-          style={{marginRight: 20}}
+          style={{marginRight: horizontalScale(20)}}
         />
       )}
     </View>
@@ -36,10 +37,10 @@ export default function CustomTextInput({
 const styles = StyleSheet.create({
   inputText: {
     color: 'black',
-    paddingVertical: 20,
+    paddingVertical: verticalScale(20),
     flex: 1,
-    fontSize: 18,
-    marginLeft: 20,
+    fontSize: moderateScale(18),
+    marginLeft: horizontalScale(20),
     // backgroundColor: 'blue',
   },
   customInputBox: {
@@ -50,7 +51,7 @@ const styles = StyleSheet.create({
     // justifyContent: 'center',
     borderColor: 'black',
     borderWidth: StyleSheet.hairlineWidth,
-    borderRadius: 10,
-    marginTop: 20,
+    borderRadius: moderateScale(10),
+    marginTop: verticalScale(20),
   },
 });
