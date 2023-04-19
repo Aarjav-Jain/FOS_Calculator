@@ -6,7 +6,7 @@ import SafetyChart from './screens/safety-chart/safety-chart';
 import MachineLearning from './screens/machine-learning/machine-learning';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-// import DumpClassificationResult from './src/components/dump-classification/dump-classification-result';
+import DumpClassificationResult from './src/components/dump-classification/dump-classification-result';
 // import SafetyChartResult from './src/components/safety-chart/safety-chart-result';
 import Navbar from './src/UI/navbar';
 import MLLegend from './screens/machine-learning/MLLegend';
@@ -46,11 +46,11 @@ export default function App() {
             headerRight: () => <LegendSCNav />,
           }}
         />
-        {/* <Stack.Screen
+        <Stack.Screen
           name="Dump Classification Result"
           component={DumpClassificationResult}
         />
-        <Stack.Screen
+        {/* <Stack.Screen
           name="Safety Chart Result"
           component={SafetyChartResult}
         /> */}
