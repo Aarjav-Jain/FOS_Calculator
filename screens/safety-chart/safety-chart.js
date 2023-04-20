@@ -2,6 +2,7 @@ import {useNavigation} from '@react-navigation/native';
 import {useReducer, useState} from 'react';
 import CustomForm from '../../src/components/common/custom-form';
 import {getSafetyChartPrediction} from '../../src/utils/apis/modelApi';
+import {ActivityIndicator, StyleSheet, View} from 'react-native';
 
 export default function SafetyChart() {
   const initialValue = {
@@ -27,7 +28,7 @@ export default function SafetyChart() {
   const [state, dispatch] = useReducer(reducer, initialValue);
   const [result, setResult] = useState(null);
 
-  // const [isLoading, setLoading] = useState(false);
+  const [isLoading, setLoading] = useState(false);
   const navigation = useNavigation();
 
   function calcDistance(a, b) {
@@ -47,7 +48,7 @@ export default function SafetyChart() {
   }
 
   const handleClick = async () => {
-    // setLoading(true);
+    setLoading(true);
     const predictionValues = state;
     const unFormattedValues = Object.values(predictionValues);
     const numberArray = unFormattedValues.map(i => Number(i));
@@ -58,20 +59,22 @@ export default function SafetyChart() {
     // console.log(predictionArray);
     try {
       const res = await getSafetyChartPrediction(predictionArray);
-      // setLoading(false);
-      // navigation.navigate('Safety Chart Result', {predictedValue: res});
       if (res < 1) setResult('Fail');
       else if (res >= 1 && res <= 1.19) setResult('Vulnerable');
       else setResult('Safe');
-      // setResult(res);
     } catch (e) {
       console.log('could not get safety chart prediction', e);
       setResult(null);
-      // setLoading(false);
+    } finally {
+      setLoading(false);
     }
   };
 
-  return (
+  return isLoading ? (
+    <View style={styles.container}>
+      <ActivityIndicator size={50} color="black" />
+    </View>
+  ) : (
     <CustomForm
       state={state}
       btnText="Predict Class"
@@ -84,3 +87,10 @@ export default function SafetyChart() {
     />
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+  },
+});

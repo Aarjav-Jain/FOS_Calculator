@@ -1,10 +1,22 @@
 import {useNavigation} from '@react-navigation/native';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import Card from '../../src/UI/card';
+import {getSafetyChartPrediction} from '../../src/utils/apis/modelApi';
 
 export default function Home() {
   const navigation = useNavigation();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await getSafetyChartPrediction([10, 25, 38]);
+      } catch (e) {
+        console.log('initial request on home page failed', e);
+      }
+    };
+    fetchData();
+  }, []);
 
   return (
     <View style={styles.container}>

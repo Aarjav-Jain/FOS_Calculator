@@ -2,6 +2,7 @@ import {useReducer, useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import CustomForm from '../../src/components/common/custom-form';
 import {getMLPrediction} from '../../src/utils/apis/modelApi';
+import {ActivityIndicator, StyleSheet, View} from 'react-native';
 
 export default function MachineLearning() {
   const initialValue = {
@@ -58,6 +59,7 @@ export default function MachineLearning() {
 
   const [state, dispatch] = useReducer(reducer, initialValue);
   const [result, setResult] = useState(null);
+  const [isLoading, setLoading] = useState(false);
 
   const navigation = useNavigation();
 
@@ -65,16 +67,23 @@ export default function MachineLearning() {
     const predictionValues = state;
     const unFormattedValues = Object.values(predictionValues);
     const predictionArray = unFormattedValues.map(i => Number(i));
+    setLoading(true);
     try {
       const res = await getMLPrediction(predictionArray);
       setResult(res);
     } catch (e) {
       console.log('could not get prediction', e);
       setResult(null);
+    } finally {
+      setLoading(false);
     }
   };
 
-  return (
+  return isLoading ? (
+    <View style={styles.container}>
+      <ActivityIndicator size={50} color="black" />
+    </View>
+  ) : (
     <CustomForm
       state={state}
       btnText="Predict FOS"
@@ -82,7 +91,14 @@ export default function MachineLearning() {
       handleClick={handleClick}
       dispatch={dispatch}
       result={result}
-      setResult = {setResult}
+      setResult={setResult}
     />
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+  },
+});
