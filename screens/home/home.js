@@ -7,16 +7,16 @@ import {getSafetyChartPrediction} from '../../src/utils/apis/modelApi';
 export default function Home() {
   const navigation = useNavigation();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await getSafetyChartPrediction([10, 25, 38]);
-      } catch (e) {
-        console.log('initial request on home page failed', e);
-      }
-    };
-    fetchData();
-  }, []);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const res = await getSafetyChartPrediction([10, 25, 38]);
+  //     } catch (e) {
+  //       console.log('initial request on home page failed', e);
+  //     }
+  //   };
+  //   fetchData();
+  // }, []);
 
   return (
     <View style={styles.container}>
